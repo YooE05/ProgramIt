@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ConsoleButton : MonoBehaviour
+public sealed class ConsoleButton : MonoBehaviour
 {
     [SerializeField]
     private ButtonInputValues _value;

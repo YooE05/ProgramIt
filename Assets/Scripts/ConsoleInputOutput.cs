@@ -3,15 +3,18 @@ using TMPro;
 using System.Collections.Generic;
 using System.Linq;
 
-public class ConsoleDataHandler : MonoBehaviour
+public sealed class ConsoleInputOutput : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _consoleInputString;
+    [SerializeField]
+    private TextMeshProUGUI _debugString;
+
 
     private List<Command> _commands = new();
 
     [SerializeField]
-    private RobotMovementController _robotMovement;
+    private CommandParser _commandParser;
 
     public void AddButtonValue(ConsoleButton button)
     {
@@ -75,7 +78,10 @@ public class ConsoleDataHandler : MonoBehaviour
 
     public void StartProgram()
     {
-        // _robotMovement.ReadProgram();
+        //было бы неплохо ещё отображать цветом ход по строчкам кода
+        string debugMessage = _commandParser.ReadProgram(_commands);
+        _debugString.text = debugMessage;
+       // Debug.Log(debugMessage);
     }
 
     private void GoToNextString()
@@ -84,7 +90,7 @@ public class ConsoleDataHandler : MonoBehaviour
     }
 }
 
-public class Command
+public sealed class Command
 {
     public ButtonInputValues ActionValue;
     public string StringValue;
@@ -129,10 +135,10 @@ public class Command
         return needNextCommand;
     }
 
-    public bool IsNumber(ButtonInputValues value)
+    public bool IsNumber()
     {
         bool isNumber;
-        switch (value)
+        switch (ActionValue)
         {
             case ButtonInputValues.Zero:
                 isNumber = true;
