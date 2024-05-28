@@ -3,13 +3,10 @@ using TMPro;
 using System.Collections.Generic;
 using System.Linq;
 
-public sealed class ConsoleInputOutput : MonoBehaviour
+public sealed class ConsoleInputHandler : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _consoleInputString;
-    [SerializeField]
-    private TextMeshProUGUI _debugString;
-
 
     private List<Command> _commands = new();
 
@@ -79,9 +76,9 @@ public sealed class ConsoleInputOutput : MonoBehaviour
     public void StartProgram()
     {
         //было бы неплохо ещё отображать цветом ход по строчкам кода
+        StopAllCoroutines();
         StartCoroutine(_commandParser.ReadProgram(_commands));
-        //string debugMessage = _commandParser.ReadProgram(_commands);
-        //_debugString.text = debugMessage;
+
        // Debug.Log(debugMessage);
     }
 
