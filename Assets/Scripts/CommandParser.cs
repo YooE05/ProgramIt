@@ -1,32 +1,28 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public sealed class CommandParser : MonoBehaviour
 {
-    private Vector2 _coordinates;
-    private bool _isActive;
+    public delegate void CommandAction();
+    public CommandAction _currentAction;
+
+    [SerializeField]
+    private RobotMovement _robotMovement;
+   // private bool _robotMovementIsActive;
 
     private List<Command> _currentCommandLine = new();
     private int _stepsCount = -1;
     private string _debugString;
 
-    public delegate void CommandAction();
-    public CommandAction _currentAction;
-
-
-    private void InitRobot(Vector2 startCoordinates)
-    {
-        _coordinates = startCoordinates;
-    }
-
-    internal string ReadProgram(List<Command> commands, List<Command> additionalCommands = null)
+    public IEnumerator ReadProgram(List<Command> commands, List<Command> additionalCommands = null)
     {
         InitConsole();
 
         if (commands.Count == 0)
         {
-            return "no code";
+            _debugString = "no code";
         }
         else
         {
@@ -37,19 +33,23 @@ public sealed class CommandParser : MonoBehaviour
 
                 if (i == 0 && _currentAction != Activate)
                 {
-                    return "need to activate robot first";
+                    _debugString = "need to activate robot first";
+                    break;
                 }
-                else if (_isActive && i == commands.Count - 1 && additionalCommands == null && _currentAction != Disactivate || commands.Count < 2)
+                else if (_robotMovement.IsActive && i == commands.Count - 1 && additionalCommands == null && _currentAction != Disactivate || commands.Count < 2)
                 {
-                    return "need to disactivate robot at the end";
+                    _debugString = "need to disactivate robot at the end";
+                    break;
                 }
-                else if (i != 0 && !_isActive)
+                else if (i != 0 && !_robotMovement.IsActive)
                 {
-                    return "robot can't act after first disactivation";
+                    _debugString = "robot can't act after first disactivation";
+                    break;
                 }
                 else
                 {
                     RealiseAction(_currentAction, commands[i]);
+                    yield return new WaitForSeconds(1f);
                 }
             }
         }
@@ -61,7 +61,9 @@ public sealed class CommandParser : MonoBehaviour
             _debugString = "it's fine";
         }
 
-        return _debugString;
+        Debug.Log(_debugString);
+
+        yield return _debugString;
     }
 
     private void RealiseAction(CommandAction currentAction, Command currendCommand)
@@ -86,7 +88,7 @@ public sealed class CommandParser : MonoBehaviour
         _debugString = string.Empty;
         _currentCommandLine.Clear();
         _stepsCount = -1;
-        _isActive = false;
+        _robotMovement.IsActive = false;
     }
 
     private CommandAction DefineAction(Command command)
@@ -204,7 +206,7 @@ public sealed class CommandParser : MonoBehaviour
 
     private void Activate()
     {
-        if (_isActive)
+        if (_robotMovement.IsActive)
         {
             _debugString = "ERROR, you already activated robot!";
             Debug.Log("ERROR, you already activated robot!");
@@ -212,16 +214,16 @@ public sealed class CommandParser : MonoBehaviour
         else
         {
             Debug.Log("Activated");
-            _isActive = true;
+            _robotMovement.ChangeActivationStage(true);
         }
     }
 
     private void Disactivate()
     {
-        if (_isActive)
+        if (_robotMovement.IsActive)
         {
             Debug.Log("Disactivated");
-            _isActive = false;
+            _robotMovement.ChangeActivationStage(false);
         }
         else
         {
@@ -232,11 +234,13 @@ public sealed class CommandParser : MonoBehaviour
 
     private void RotateLeft()
     {
+        _robotMovement.RotateLeft();
         Debug.Log("Rotate left");
     }
 
     private void RotateRight()
     {
+        _robotMovement.RotateRight();
         Debug.Log("Rotate right");
     }
 

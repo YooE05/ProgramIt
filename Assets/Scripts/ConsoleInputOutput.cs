@@ -79,8 +79,9 @@ public sealed class ConsoleInputOutput : MonoBehaviour
     public void StartProgram()
     {
         //было бы неплохо ещё отображать цветом ход по строчкам кода
-        string debugMessage = _commandParser.ReadProgram(_commands);
-        _debugString.text = debugMessage;
+        StartCoroutine(_commandParser.ReadProgram(_commands));
+        //string debugMessage = _commandParser.ReadProgram(_commands);
+        //_debugString.text = debugMessage;
        // Debug.Log(debugMessage);
     }
 
