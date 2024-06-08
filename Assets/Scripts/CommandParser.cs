@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System;
 using TMPro;
 using UnityEngine;
 
 public sealed class CommandParser : MonoBehaviour
 {
+    public Action OnProgramStopped;
     public delegate void CommandAction();
     public CommandAction _currentAction;
 
     [SerializeField]
     private RobotMovement _robotMovement;
-    // private bool _robotMovementIsActive;
+    [SerializeField]
+    private FieldInitializer _fieldInitializer;
 
     private List<Command> _currentCommandLine = new();
     private int _stepsCount = -1;
@@ -21,52 +23,52 @@ public sealed class CommandParser : MonoBehaviour
     private string _debugStringValue;
     private bool _needToStopProgram;
 
+    public bool IsProgramCrashed { get=> _needToStopProgram; }
+
     public IEnumerator ReadProgram(List<Command> commands, List<Command> additionalCommands = null)
     {
         InitConsole();
-        _robotMovement.InitRobot();
+        _fieldInitializer.InitFieldView();
+        //_robotMovement.InitRobot();
 
         if (commands.Count == 0)
         {
-            _debugStringValue = "no code";
+            StopProgramWithSpecialWarning("no code");
         }
-        else
+
+        //для начала сделаю, чтобы команды просто считывались без учёт положения робота
+        for (int i = 0; i < commands.Count; i++)
         {
-            //для начала сделаю, чтобы команды просто считывались без учёт положения робота
-            for (int i = 0; i < commands.Count; i++)
+            if (_needToStopProgram)
             {
-                if (_needToStopProgram)
-                {
-                    break;
-                }
+                break;
+            }
 
-                _currentAction = DefineAction(commands[i]);
+            _currentAction = DefineAction(commands[i]);
 
-                if (i == 0 && _currentAction != Activate)
-                {
-                    _debugStringValue = "need to activate robot first";
-                    break;
-                }
-                else if (_robotMovement.IsActive && i == commands.Count - 1 && additionalCommands == null && _currentAction != Disactivate || commands.Count < 2)
-                {
-                    _debugStringValue = "need to disactivate robot at the end";
-                    break;
-                }
-                else if (i != 0 && !_robotMovement.IsActive)
-                {
-                    _debugStringValue = "robot can't act after first disactivation";
-                    break;
-                }
-                else
-                {
-                    //  RealiseAction(_currentAction, commands[i]);
-                    yield return RealiseAction(_currentAction, commands[i]);
-                }
+            if (i == 0 && _currentAction != Activate)
+            {
+                StopProgramWithSpecialWarning("need to activate robot first");
+                break;
+            }
+            else if (_robotMovement.IsActive && i == commands.Count - 1 && additionalCommands == null && _currentAction != Disactivate || commands.Count < 2)
+            {
+                StopProgramWithSpecialWarning("need to disactivate robot at the end");
+                break;
+            }
+            else if (i != 0 && !_robotMovement.IsActive)
+            {
+                StopProgramWithSpecialWarning("robot can't act after first disactivation");
+                break;
+            }
+            else
+            {
+                //  RealiseAction(_currentAction, commands[i]);
+                yield return RealiseAction(_currentAction, commands[i]);
             }
         }
 
         //Сделать выводы после конца программы
-
         if (_debugStringValue == string.Empty)
         {
             _debugStringValue = "it's fine";
@@ -75,6 +77,8 @@ public sealed class CommandParser : MonoBehaviour
         Debug.Log(_debugStringValue);
 
         _debugString.text = _debugStringValue;
+
+        OnProgramStopped?.Invoke();
 
         yield return null;
     }
@@ -164,34 +168,34 @@ public sealed class CommandParser : MonoBehaviour
             switch (command.ActionValue)
             {
                 case ButtonInputValues.Zero:
-                    returnedAction = StopProgramm;
+                    returnedAction = StopProgram;
                     break;
                 case ButtonInputValues.One:
-                    returnedAction = StopProgramm;
+                    returnedAction = StopProgram;
                     break;
                 case ButtonInputValues.Two:
-                    returnedAction = StopProgramm;
+                    returnedAction = StopProgram;
                     break;
                 case ButtonInputValues.Three:
-                    returnedAction = StopProgramm;
+                    returnedAction = StopProgram;
                     break;
                 case ButtonInputValues.For:
-                    returnedAction = StopProgramm;
+                    returnedAction = StopProgram;
                     break;
                 case ButtonInputValues.Five:
-                    returnedAction = StopProgramm;
+                    returnedAction = StopProgram;
                     break;
                 case ButtonInputValues.Six:
-                    returnedAction = StopProgramm;
+                    returnedAction = StopProgram;
                     break;
                 case ButtonInputValues.Seven:
-                    returnedAction = StopProgramm;
+                    returnedAction = StopProgram;
                     break;
                 case ButtonInputValues.Eight:
-                    returnedAction = StopProgramm;
+                    returnedAction = StopProgram;
                     break;
                 case ButtonInputValues.Nine:
-                    returnedAction = StopProgramm;
+                    returnedAction = StopProgram;
                     break;
                 case ButtonInputValues.Activate:
                     returnedAction = Activate;
@@ -218,18 +222,24 @@ public sealed class CommandParser : MonoBehaviour
         return returnedAction;
     }
 
-    private void StopProgramm()
+    private void StopProgram()
     {
         _needToStopProgram = true;
         _debugStringValue = "programm was stopped - incorrect line";
         Debug.Log("programm was stopped - incorrect line");
+    }
+    private void StopProgramWithSpecialWarning(string warningText = "programm was stopped - incorrect line")
+    {
+        _needToStopProgram = true;
+        _debugStringValue = warningText;
+        Debug.Log(warningText);
     }
 
     private void Activate()
     {
         if (_robotMovement.IsActive)
         {
-            _debugStringValue = "ERROR, you already activated robot!";
+            StopProgramWithSpecialWarning("ERROR, you already activated robot!");
             Debug.Log("ERROR, you already activated robot!");
         }
         else
@@ -248,7 +258,7 @@ public sealed class CommandParser : MonoBehaviour
         }
         else
         {
-            _debugStringValue = "You need to activate robot first";
+            StopProgramWithSpecialWarning("You need to activate robot first");
             Debug.Log("You need to activate robot first");
         }
     }
@@ -273,9 +283,8 @@ public sealed class CommandParser : MonoBehaviour
         }
         else
         {
-            StopProgramm();
             //сделать свитч на разные варианты отказа идти вперёд
-            _debugStringValue = "Robot can't move to next cell";
+            StopProgramWithSpecialWarning("Robot can't move to next cell");
         }
 
         _currentCommandLine.Clear();

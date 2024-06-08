@@ -1,14 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public sealed class RobotMovement : MonoBehaviour
 {
     public bool IsActive;
-
-    [SerializeField]
-    private Vector2 _startCoordinates;
-
-    private Vector2 _coordinates;
+    public Vector2 Coordinates { get; private set; }
     private Rotation _currentRotation;
 
     [SerializeField]
@@ -19,22 +16,11 @@ public sealed class RobotMovement : MonoBehaviour
     [SerializeField]
     private Grid _grid;
 
-    [SerializeField]
-    private Sprite _spriteForStartPosition;
-
-    private void Start()
-    {
-        InitRobot();
-    }
-
     public void InitRobot()
     {
         IsActive = false;
 
-        _coordinates = _startCoordinates;
-
-        var startCell = _grid.GetCellProperties(_coordinates);
-        startCell.SetSprite(_spriteForStartPosition);
+        var startCell = _grid.GetCellProperties(Coordinates);
         _robotTransform.position = new Vector3(startCell.Position.x, startCell.Position.y, _robotTransform.position.z);
 
         _currentRotation = Rotation.Right;
@@ -89,7 +75,7 @@ public sealed class RobotMovement : MonoBehaviour
 
     public bool TryMoveForward()
     {
-        var nextCellCoordinates = _coordinates;
+        var nextCellCoordinates = Coordinates;
         switch (_currentRotation)
         {
             case Rotation.Right:
@@ -112,13 +98,18 @@ public sealed class RobotMovement : MonoBehaviour
         if (nextCell.IsAbleToMove)
         {
             TranslateRobot(nextCell.Position);
-            _coordinates = nextCellCoordinates;
+            SetNewCoordinates(nextCellCoordinates);
             return true;
         }
         else
         {
             return false;
         }
+    }
+
+    public void SetNewCoordinates(Vector2 newCoordinates)
+    {
+        Coordinates = newCoordinates;
     }
 
     private void TranslateRobot(Vector2 needPosition)

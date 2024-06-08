@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public sealed class ConsoleInputHandler : MonoBehaviour
 {
@@ -13,73 +14,102 @@ public sealed class ConsoleInputHandler : MonoBehaviour
     [SerializeField]
     private CommandParser _commandParser;
 
+    public bool CanEnterComands;
+
     public void AddButtonValue(ConsoleButton button)
     {
-        //записать команду в строку
-        if (_commands.Count > 0)
+        if (CanEnterComands)
         {
-            //если прошлая команда нуждается в продолжении, а текущая команда подходит под её стандарты продолжения, то всё нормально, но если это не так, то новую команду мы печатаем на новой строчке
-            if (_commands.Last().NeedNextCommandInLine && !_commands.Last().IsNextCommandCorrect(button.Value))
+            //записать команду в строку
+            if (_commands.Count > 0)
+            {
+                //если прошлая команда нуждается в продолжении, а текущая команда подходит под её стандарты продолжения, то всё нормально, но если это не так, то новую команду мы печатаем на новой строчке
+                if (_commands.Last().NeedNextCommandInLine && !_commands.Last().IsNextCommandCorrect(button.Value))
+                {
+                    GoToNextString();
+                }
+            }
+
+            _commands.Add(new Command(button.Value));
+            _consoleInputString.text += _commands.Last().StringValue;
+
+            //если команда самостроятельная, то происходит переход на другую строку
+            if (!_commands.Last().NeedNextCommandInLine)
             {
                 GoToNextString();
             }
         }
+    }
 
-        _commands.Add(new Command(button.Value));
-        _consoleInputString.text += _commands.Last().StringValue;
-
-        //если команда самостроятельная, то происходит переход на другую строку
-        if (!_commands.Last().NeedNextCommandInLine)
-        {
-            GoToNextString();
-        }
+    internal int GetCountOfCommands()
+    {
+        return _commands.Count;
     }
 
     public void DeleteLastInput()
     {
-        if (_commands.Count > 0)
+        if (CanEnterComands)
         {
-            //если последняя команда самостроятельная, то нужно ещё удалить символы перехода на строку
-            if (_consoleInputString.text.Length > 4)
+            if (_commands.Count > 0)
             {
-                if (_consoleInputString.text.Substring(_consoleInputString.text.Length - 2, 2) == "\r\n")
+                //если последняя команда самостроятельная, то нужно ещё удалить символы перехода на строку
+                if (_consoleInputString.text.Length > 4)
                 {
-                    _consoleInputString.text = _consoleInputString.text.Substring(0, _consoleInputString.text.Length - 2);
+                    if (_consoleInputString.text.Substring(_consoleInputString.text.Length - 2, 2) == "\r\n")
+                    {
+                        _consoleInputString.text = _consoleInputString.text.Substring(0, _consoleInputString.text.Length - 2);
+                    }
                 }
+
+                _consoleInputString.text = _consoleInputString.text.Substring(0, _consoleInputString.text.Length - (_commands.Last().StringValue.Length));
+
+                if (_commands.Count > 1)
+                {
+                    //если у нас перед текущим словом шло слово-начала команды, то мы не убираем переход на новую строку, а только стираем текущее слово
+                    if (_commands[_commands.Count - 2].NeedNextCommandInLine && !_commands[_commands.Count - 2].IsNextCommandCorrect(_commands.Last().ActionValue))
+                    {
+                        _consoleInputString.text = _consoleInputString.text.Substring(0, _consoleInputString.text.Length - 2);
+                    }
+                }
+
+                _commands.Remove(_commands.Last());
             }
-
-            _consoleInputString.text = _consoleInputString.text.Substring(0, _consoleInputString.text.Length - (_commands.Last().StringValue.Length));
-
-            if (_commands.Count > 1)
+            else
             {
-                //если у нас перед текущим словом шло слово-начала команды, то мы не убираем переход на новую строку, а только стираем текущее слово
-                if (_commands[_commands.Count - 2].NeedNextCommandInLine && !_commands[_commands.Count - 2].IsNextCommandCorrect(_commands.Last().ActionValue))
-                {
-                    _consoleInputString.text = _consoleInputString.text.Substring(0, _consoleInputString.text.Length - 2);
-                }
+                ClearConsole();
             }
-
-            _commands.Remove(_commands.Last());
-        }
-        else
-        {
-            ClearConsole();
         }
     }
 
     public void ClearConsole()
     {
-        _consoleInputString.text = string.Empty;
-        _commands.Clear();
+        if (CanEnterComands)
+        {
+            _consoleInputString.text = string.Empty;
+            _commands.Clear();
+        }
     }
 
     public void StartProgram()
     {
-        //было бы неплохо ещё отображать цветом ход по строчкам кода
-        StopAllCoroutines();
-        StartCoroutine(_commandParser.ReadProgram(_commands));
+        if (CanEnterComands)
+        {
+            //было бы неплохо ещё отображать цветом ход по строчкам кода
+            StopAllCoroutines();
+            DisactivateConsole();
+            StartCoroutine(_commandParser.ReadProgram(_commands));
+        }
+        // Debug.Log(debugMessage);
+    }
 
-       // Debug.Log(debugMessage);
+    public void ActivateConsole()
+    {
+        CanEnterComands = true;
+    }
+    
+    public void DisactivateConsole()
+    {
+        CanEnterComands = false;
     }
 
     private void GoToNextString()
