@@ -1,6 +1,7 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public class GameLoopController : MonoBehaviour
+public sealed class GameLoopController : MonoBehaviour
 {
     [SerializeField]
     private ConsoleInputHandler _consoleInput;
@@ -8,27 +9,35 @@ public class GameLoopController : MonoBehaviour
     private FieldInitializer _fieldInitializer;
     [SerializeField]
     private UIContoller _uIContoller;
+    [SerializeField]
+    private TutorialController _tutorialController;
 
-    private WinCriteria _winCriteria;
-
-    /*    [SerializeField]
-        private RobotMovement _robotMovement;*/
+    [Header("Mark criteria")]
+    [SerializeField]
+    private List<int> _criteriaList = new();
+    [SerializeField]
+    private List<string> _textsForMarks = new();
+    [SerializeField]
+    private string _textForLose;
 
     private void Start()
     {
         InitGame();
-        StartGame();
+        StartTutorial();
     }
 
     private void InitGame()
     {
         _fieldInitializer.InitFieldView();
+        _tutorialController.SetTextToStart();
     }
 
     public void StartTutorial()
     {
         _consoleInput.DisactivateConsole();
         //включить диалог робота
+        _tutorialController.OpenDialogueFromStart();
+        StartGame();
     }
 
     public void StartGame()
@@ -39,30 +48,56 @@ public class GameLoopController : MonoBehaviour
 
     public void FinishGame()
     {
-        _consoleInput.DisactivateConsole();
         Debug.Log("Game Ended");
-        //посчитать оценку
-        string mark = "";
-        mark+= _consoleInput.GetCountOfCommands().ToString();
 
-        _uIContoller.SetupEndPanel(mark);
-        //показать конечную панель
+        
+
+        _consoleInput.DisactivateConsole();
+        //посчитать и вывести оценку за игру
+        var countOfCommands = _consoleInput.GetCountOfCommands();
+        int indexOfMark = GetMarkIndex(countOfCommands);
+        string mark = "ќценка - "+(indexOfMark +3).ToString()+ "!";
+        string markConclusion;
+        if (indexOfMark == -1)
+        {
+            markConclusion = _textForLose;
+            _uIContoller.HideNextButtonOnEndPanel();
+
+            //назначить роботу текст плохой концовки
+            _tutorialController.SetTextToBadEnd();
+        }
+        else
+        {
+            markConclusion = _textsForMarks[indexOfMark];
+            _uIContoller.ShowNextButtonOnEndPanel();
+
+            //назначить роботу текст хорошей концовки
+            _tutorialController.SetTextToGoodEnd();
+        }
+
+        _uIContoller.SetupEndPanel(mark, markConclusion);
         _uIContoller.ShowEndPanel();
-        //выдать спич робота в зависимости от нужны и оценки
+
+        _tutorialController.OpenDialogueFromStart();
     }
-}
 
-
-public class WinCriteria
-{
-    public WinCriteria(int five, int fore, int three)
+    private int GetMarkIndex(int countOfCommands)
     {
-        countOfCommandForExelent = five;
-        countOfCommandForGood = fore;
-        countOfCommandForBad = three;
-    }
+        int index = -1;
 
-    public int countOfCommandForExelent;
-    public int countOfCommandForGood;
-    public int countOfCommandForBad;
+        if (countOfCommands < _criteriaList[0])
+        {
+            index = 0;
+        }
+        if (countOfCommands < _criteriaList[1])
+        {
+            index = 1;
+        }
+        if (countOfCommands < _criteriaList[2])
+        {
+            index = 2;
+        }
+
+        return index;
+    }
 }

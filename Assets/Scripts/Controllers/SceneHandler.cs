@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneTransitionController : MonoBehaviour
+public sealed class SceneHandler : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {

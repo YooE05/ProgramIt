@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FieldInitializer : MonoBehaviour
+public sealed class FieldInitializer : MonoBehaviour
 {
     [SerializeField]
     private Grid _grid;

@@ -19,7 +19,7 @@ public sealed class Grid : MonoBehaviour
         {
             tempCells.Add(_allCells[i]);
 
-            if ((i+1) % 9 == 0)
+            if ((i + 1) % 9 == 0)
             {
                 _cellsList.Add(tempCells);
                 tempCells = new();
@@ -29,7 +29,7 @@ public sealed class Grid : MonoBehaviour
 
     public CellBase GetCellProperties(Vector2 cellCoordinates)
     {
-        if (cellCoordinates.x < _cellsList.Count && cellCoordinates.y < _cellsList[0].Count)
+        if (cellCoordinates.x >= 0 && cellCoordinates.y >= 0 && cellCoordinates.x < _cellsList.Count && cellCoordinates.y < _cellsList[0].Count)
         {
             return _cellsList[(int)cellCoordinates.y][(int)cellCoordinates.x];
         }

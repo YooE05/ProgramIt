@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EndProgrammListener : MonoBehaviour
+public sealed class EndingProgrammListener : MonoBehaviour
 {
     [SerializeField]
     private GameLoopController _gameLoopController;
