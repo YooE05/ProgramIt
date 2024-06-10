@@ -228,6 +228,14 @@ public sealed class CommandParser : MonoBehaviour
         _debugStringValue = "programm was stopped - incorrect line";
         Debug.Log("programm was stopped - incorrect line");
     }
+
+    public void ResetRobot()
+    {
+        StopProgram();
+        _fieldInitializer.InitFieldView();
+        _debugStringValue = "Программа была остановлена";
+    }
+
     private void StopProgramWithSpecialWarning(string warningText = "programm was stopped - incorrect line")
     {
         _needToStopProgram = true;

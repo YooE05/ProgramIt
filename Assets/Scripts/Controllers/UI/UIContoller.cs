@@ -5,6 +5,9 @@ using TMPro;
 public sealed class UIContoller : MonoBehaviour
 {
     [SerializeField]
+    private GameObject _infoPanel;
+
+    [SerializeField]
     private GameObject _endPanel;
     [SerializeField]
     private GameObject _nextButtonOnEndPanel;
@@ -16,7 +19,32 @@ public sealed class UIContoller : MonoBehaviour
     private void Start()
     {
         HideEndPanel();
+        HideInfoPanel();
     }
+
+    public void SwitchInfoPanel()
+    {
+        if (_infoPanel.activeSelf)
+        {
+            _infoPanel.SetActive(false);
+        }
+        else
+        {
+            _infoPanel.SetActive(true);
+        }
+
+    }
+
+    public void HideInfoPanel()
+    {
+        _infoPanel.SetActive(false);
+    }
+
+    public void ShowInfoPanel()
+    {
+        _infoPanel.SetActive(true);
+    }
+
 
     public void HideEndPanel()
     {

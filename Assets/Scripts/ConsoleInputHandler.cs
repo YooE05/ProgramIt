@@ -99,17 +99,21 @@ public sealed class ConsoleInputHandler : MonoBehaviour
             DisactivateConsole();
             StartCoroutine(_commandParser.ReadProgram(_commands));
         }
-        // Debug.Log(debugMessage);
     }
 
     public void ActivateConsole()
     {
         CanEnterComands = true;
     }
-    
+
     public void DisactivateConsole()
     {
         CanEnterComands = false;
+    }
+
+    public void ReturnRobot()
+    {
+        _commandParser.ResetRobot();
     }
 
     private void GoToNextString()
