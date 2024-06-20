@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CellBase : MonoBehaviour
@@ -11,6 +9,7 @@ public class CellBase : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _spriteRenderer.sprite = _sprite;
     }
 
     public void SetSprite(Sprite sprite)

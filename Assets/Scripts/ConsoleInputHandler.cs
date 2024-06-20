@@ -14,6 +14,9 @@ public sealed class ConsoleInputHandler : MonoBehaviour
     [SerializeField]
     private CommandParser _commandParser;
 
+    [SerializeField]
+    private AdditionalProgrammCode _additionalProgrammCode;
+
     public bool CanEnterComands;
 
     public void AddButtonValue(ConsoleButton button)
@@ -97,7 +100,7 @@ public sealed class ConsoleInputHandler : MonoBehaviour
             //было бы неплохо ещё отображать цветом ход по строчкам кода
             StopAllCoroutines();
             DisactivateConsole();
-            StartCoroutine(_commandParser.ReadProgram(_commands));
+            StartCoroutine(_commandParser.ReadProgram(_commands, _additionalProgrammCode.GetCommands()));
         }
     }
 
@@ -160,6 +163,20 @@ public sealed class Command
                 _acceptableNextCommands.Add(ButtonInputValues.Nine);
                 break;
 
+            case ButtonInputValues.Pull:
+                needNextCommand = true;
+                //после команды ТЯНИ допустимы только цифры
+                _acceptableNextCommands.Add(ButtonInputValues.Zero);
+                _acceptableNextCommands.Add(ButtonInputValues.One);
+                _acceptableNextCommands.Add(ButtonInputValues.Two);
+                _acceptableNextCommands.Add(ButtonInputValues.Three);
+                _acceptableNextCommands.Add(ButtonInputValues.For);
+                _acceptableNextCommands.Add(ButtonInputValues.Five);
+                _acceptableNextCommands.Add(ButtonInputValues.Six);
+                _acceptableNextCommands.Add(ButtonInputValues.Seven);
+                _acceptableNextCommands.Add(ButtonInputValues.Eight);
+                _acceptableNextCommands.Add(ButtonInputValues.Nine);
+                break;
             default:
                 needNextCommand = false;
                 break;
@@ -259,6 +276,9 @@ public sealed class Command
             case ButtonInputValues.Go:
                 parsedSting = "Иди ";
                 break;
+            case ButtonInputValues.Pull:
+                parsedSting = "Потянуть ";
+                break;
             default:
                 break;
         }
@@ -295,5 +315,6 @@ public enum ButtonInputValues
     Disactivate = 11,
     Right = 13,
     Left = 14,
-    Go = 15
+    Go = 15,
+    Pull = 16
 }

@@ -25,11 +25,18 @@ public sealed class CommandParser : MonoBehaviour
 
     public bool IsProgramCrashed { get=> _needToStopProgram; }
 
-    public IEnumerator ReadProgram(List<Command> commands, List<Command> additionalCommands = null)
+    public IEnumerator ReadProgram(List<Command> inputCommands, List<Command> additionalCommands = null)
     {
+        List<Command> commands = new List<Command>(inputCommands);
+
         InitConsole();
         _fieldInitializer.InitFieldView();
         //_robotMovement.InitRobot();
+
+        if(additionalCommands != null)
+        {
+            commands.AddRange(additionalCommands);
+        }
 
         if (commands.Count == 0)
         {

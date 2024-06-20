@@ -11,6 +11,12 @@ public sealed class EndingProgrammListener : MonoBehaviour
     [SerializeField]
     private RobotMovement _robotMovement;
 
+    [SerializeField]
+    private InputValuesMatcher _inputValuesMatcher;
+    [SerializeField]
+    private bool _isNeedToMatchVariables;
+    //private 
+
     [Header("Conditions")]
     [SerializeField] FieldInitializer _fieldInitializer;
 
@@ -31,7 +37,7 @@ public sealed class EndingProgrammListener : MonoBehaviour
         {
             Debug.Log("Робот в победных координатах");
             //если соблюдены дополнительные условия (для каждого уровня свои)
-            if (AdditionalConditionsMet())
+            if (CheckAdditionalConditions())
             {
                 _gameLoopController.FinishGame();
             }
@@ -49,8 +55,15 @@ public sealed class EndingProgrammListener : MonoBehaviour
         }
     }
 
-    private bool AdditionalConditionsMet()
+    private bool CheckAdditionalConditions()
     {
-        return !_commandParser.IsProgramCrashed;
+        bool isLevelPassed= !_commandParser.IsProgramCrashed;
+
+        if (_inputValuesMatcher != null && _isNeedToMatchVariables)
+        {
+            isLevelPassed = isLevelPassed && _inputValuesMatcher.IsAnswerCorrect;
+        }
+
+        return isLevelPassed;
     }
 }

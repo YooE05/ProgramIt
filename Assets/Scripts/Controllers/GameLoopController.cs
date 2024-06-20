@@ -34,7 +34,6 @@ public sealed class GameLoopController : MonoBehaviour
 
     public void StartTutorial()
     {
-        _consoleInput.DisactivateConsole();
         //включить диалог робота
         _tutorialController.OpenDialogueFromStart();
         StartGame();
