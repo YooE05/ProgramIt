@@ -107,6 +107,52 @@ public sealed class RobotMovement : MonoBehaviour
         }
     }
 
+    public bool TryToPullLever()
+    {
+        var nextCellCoordinates = Coordinates;
+        switch (_currentRotation)
+        {
+            case Rotation.Right:
+                nextCellCoordinates += Vector2.right;
+                break;
+            case Rotation.Down:
+                nextCellCoordinates += Vector2.up;
+                break;
+            case Rotation.Left:
+                nextCellCoordinates += Vector2.left;
+                break;
+            case Rotation.Up:
+                nextCellCoordinates += Vector2.down;
+                break;
+            default:
+                break;
+        }
+
+        var nextCell = _grid.GetCellProperties(nextCellCoordinates);
+
+        if (nextCell.GetType().Name == "LeverCell")
+        {
+            ((LeverCell)nextCell).AddPullCount();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+        /*  if (nextCell.IsAbleToMove)
+          {
+              TranslateRobot(nextCell.Position);
+              SetNewCoordinates(nextCellCoordinates);
+              return true;
+          }
+          else
+          {
+              return false;
+          }*/
+    }
+
+
     public void SetNewCoordinates(Vector2 newCoordinates)
     {
         Coordinates = newCoordinates;

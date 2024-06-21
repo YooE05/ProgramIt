@@ -2,7 +2,6 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 public sealed class ConsoleInputHandler : MonoBehaviour
 {

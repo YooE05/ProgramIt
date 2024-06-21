@@ -169,6 +169,48 @@ public sealed class CommandParser : MonoBehaviour
                         break;
                 }
             }
+
+            if (_currentCommandLine[0].ActionValue == ButtonInputValues.Pull && command.IsNumber())
+            {
+                returnedAction = Pull;
+                _currentCommandLine.Add(command);
+                switch (command.ActionValue)
+                {
+                    case ButtonInputValues.Zero:
+                        _stepsCount = 0;
+                        break;
+                    case ButtonInputValues.One:
+                        _stepsCount = 1;
+                        break;
+                    case ButtonInputValues.Two:
+                        _stepsCount = 2;
+                        break;
+                    case ButtonInputValues.Three:
+                        _stepsCount = 3;
+                        break;
+                    case ButtonInputValues.For:
+                        _stepsCount = 4;
+                        break;
+                    case ButtonInputValues.Five:
+                        _stepsCount = 5;
+                        break;
+                    case ButtonInputValues.Six:
+                        _stepsCount = 6;
+                        break;
+                    case ButtonInputValues.Seven:
+                        _stepsCount = 7;
+                        break;
+                    case ButtonInputValues.Eight:
+                        _stepsCount = 8;
+                        break;
+                    case ButtonInputValues.Nine:
+                        _stepsCount = 9;
+                        break;
+                    default:
+                        _stepsCount = 0;
+                        break;
+                }
+            }
         }
         else
         {
@@ -219,6 +261,10 @@ public sealed class CommandParser : MonoBehaviour
                 case ButtonInputValues.Go:
                     _currentCommandLine.Add(command);
                     returnedAction = () => { Debug.Log("Waiting for number of steps"); };
+                    break;
+                case ButtonInputValues.Pull:
+                    _currentCommandLine.Add(command);
+                    returnedAction = () => { Debug.Log("Waiting for number of pulls"); };
                     break;
                 default:
                     returnedAction = () => { Debug.Log("incorrect command"); };
@@ -299,7 +345,22 @@ public sealed class CommandParser : MonoBehaviour
         else
         {
             //сделать свитч на разные варианты отказа идти вперёд
-            StopProgramWithSpecialWarning("Robot can't move to next cell");
+            StopProgramWithSpecialWarning("Робот не может пройти!");
+        }
+
+        _currentCommandLine.Clear();
+    }
+
+    private void Pull()
+    {
+        if (_robotMovement.TryToPullLever())
+        {
+            Debug.Log("Pull");
+        }
+        else
+        {
+            //сделать свитч на разные варианты отказа идти вперёд
+            StopProgramWithSpecialWarning("Впереди нет рычага!");
         }
 
         _currentCommandLine.Clear();

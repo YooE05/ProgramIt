@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using System;
 
 public class InputValuesMatcher : MonoBehaviour
 {
+    public bool IsActiveCondition;
+
     [SerializeField]
     private List<TMP_InputField> _inputFields = new();
 
@@ -14,7 +17,7 @@ public class InputValuesMatcher : MonoBehaviour
     private float _correctNumValue;
 
     [SerializeField]
-    private bool _isString;
+    private bool _isVariablesString;
 
     [SerializeField]
     private TextMeshProUGUI _answer;
@@ -27,7 +30,7 @@ public class InputValuesMatcher : MonoBehaviour
 
         IsAnswerCorrect = true;
 
-        if (_isString)
+        if (_isVariablesString)
         {
             if (_inputFields.Count == _correctStringValues.Count)
             {
@@ -82,7 +85,13 @@ public class InputValuesMatcher : MonoBehaviour
         }
 
         Debug.Log("Значения правильные? - " + IsAnswerCorrect);
+    }
 
-        //  return _isAnswerCorrect;
+    internal void ClearFields()
+    {
+        for (int i = 0; i < _inputFields.Count; i++)
+        {
+            _inputFields[i].text=string.Empty;
+        }
     }
 }

@@ -1,11 +1,16 @@
+using System;
 using UnityEngine;
 
 public sealed class FieldInitializer : MonoBehaviour
 {
+    public Action OnFieldInited;
+
     [SerializeField]
     private Grid _grid;
     [SerializeField]
     private RobotMovement _robotMovement;
+    [SerializeField]
+    private LeversController _leversController;
 
     [SerializeField]
     private Vector2 _startCoordinates;
@@ -33,6 +38,8 @@ public sealed class FieldInitializer : MonoBehaviour
         //настроить робота
         _robotMovement.SetNewCoordinates(_startCoordinates);
         _robotMovement.InitRobot();
+        _leversController.ClearPullsCount();
+        //OnFieldInited?.Invoke();
     }
 
     /*public void RestartFieldView()

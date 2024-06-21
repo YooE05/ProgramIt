@@ -8,6 +8,11 @@ public class CellBase : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private void Awake()
     {
+        InitCell();
+    }
+
+    private void InitCell()
+    {
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _spriteRenderer.sprite = _sprite;
     }

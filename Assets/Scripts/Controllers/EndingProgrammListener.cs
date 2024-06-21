@@ -1,7 +1,11 @@
+using TMPro;
 using UnityEngine;
 
 public sealed class EndingProgrammListener : MonoBehaviour
 {
+    [SerializeField]
+    private TextMeshProUGUI _debugString;
+
     [SerializeField]
     private GameLoopController _gameLoopController;
     [SerializeField]
@@ -11,13 +15,13 @@ public sealed class EndingProgrammListener : MonoBehaviour
     [SerializeField]
     private RobotMovement _robotMovement;
 
+
+    [Header("Conditions")]
     [SerializeField]
     private InputValuesMatcher _inputValuesMatcher;
     [SerializeField]
-    private bool _isNeedToMatchVariables;
-    //private 
+    private LeversController _leversController;
 
-    [Header("Conditions")]
     [SerializeField] FieldInitializer _fieldInitializer;
 
     private void OnEnable()
@@ -44,7 +48,8 @@ public sealed class EndingProgrammListener : MonoBehaviour
             else
             {
                 _consoleInput.ActivateConsole();
-                Debug.Log("ƒоп услови€ победы не соблюдены");
+                _debugString.text = "–обот в нужной точке, но дополнительные услови€ не соблюдены";
+             //   Debug.Log("ƒоп услови€ победы не соблюдены");
             }
         }
         else
@@ -57,11 +62,19 @@ public sealed class EndingProgrammListener : MonoBehaviour
 
     private bool CheckAdditionalConditions()
     {
-        bool isLevelPassed= !_commandParser.IsProgramCrashed;
+        bool isLevelPassed = !_commandParser.IsProgramCrashed;
 
-        if (_inputValuesMatcher != null && _isNeedToMatchVariables)
+        if (_inputValuesMatcher != null)
         {
-            isLevelPassed = isLevelPassed && _inputValuesMatcher.IsAnswerCorrect;
+            if (_inputValuesMatcher.IsActiveCondition)
+            {
+                isLevelPassed = isLevelPassed && _inputValuesMatcher.IsAnswerCorrect;
+            }
+        }
+
+        if (_leversController != null)
+        {
+            isLevelPassed = isLevelPassed && _leversController.CheckAllLeverPulls();
         }
 
         return isLevelPassed;
