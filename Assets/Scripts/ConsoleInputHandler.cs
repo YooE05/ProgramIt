@@ -162,7 +162,21 @@ public sealed class Command
                 _acceptableNextCommands.Add(ButtonInputValues.Nine);
                 break;
 
-            case ButtonInputValues.Pull:
+           /* case ButtonInputValues.Pull:
+                needNextCommand = true;
+                //после команды ТЯНИ допустимы только цифры
+                _acceptableNextCommands.Add(ButtonInputValues.Zero);
+                _acceptableNextCommands.Add(ButtonInputValues.One);
+                _acceptableNextCommands.Add(ButtonInputValues.Two);
+                _acceptableNextCommands.Add(ButtonInputValues.Three);
+                _acceptableNextCommands.Add(ButtonInputValues.For);
+                _acceptableNextCommands.Add(ButtonInputValues.Five);
+                _acceptableNextCommands.Add(ButtonInputValues.Six);
+                _acceptableNextCommands.Add(ButtonInputValues.Seven);
+                _acceptableNextCommands.Add(ButtonInputValues.Eight);
+                _acceptableNextCommands.Add(ButtonInputValues.Nine);
+                break;*/
+            case ButtonInputValues.Do:
                 needNextCommand = true;
                 //после команды ТЯНИ допустимы только цифры
                 _acceptableNextCommands.Add(ButtonInputValues.Zero);
@@ -278,6 +292,15 @@ public sealed class Command
             case ButtonInputValues.Pull:
                 parsedSting = "Потянуть ";
                 break;
+            case ButtonInputValues.Do:
+                parsedSting = "Делай ";
+                break;
+            case ButtonInputValues.OpenBracket:
+                parsedSting = "{";
+                break;
+            case ButtonInputValues.CloseBracket:
+                parsedSting = "}";
+                break;
             default:
                 break;
         }
@@ -315,5 +338,8 @@ public enum ButtonInputValues
     Right = 13,
     Left = 14,
     Go = 15,
-    Pull = 16
+    Pull = 16,
+    Do = 17,
+    OpenBracket = 18,
+    CloseBracket = 19
 }
