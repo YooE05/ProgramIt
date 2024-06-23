@@ -26,7 +26,7 @@ public class InputValuesMatcher : MonoBehaviour
     private TextMeshProUGUI _answer;
     public bool IsAnswerCorrect;
 
-    private void Awake()
+    private void Start()
     {
         if (IsActiveCondition)
         {
@@ -82,14 +82,15 @@ public class InputValuesMatcher : MonoBehaviour
                 }
                 else
                 {
-                    if (i == 0)
+                    answerInt += parsedNum;
+                   /* if (i == 0)
                     {
                         answerInt += parsedNum;
                     }
                     else
                     {
-                        answerInt -= parsedNum;
-                    }
+                        answerInt += parsedNum;
+                    }*/
                 }
             }
             if (IsAnswerCorrect)

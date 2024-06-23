@@ -55,7 +55,7 @@ public sealed class EndingProgrammListener : MonoBehaviour
         else
         {
             _consoleInput.ActivateConsole();
-            _debugString.text = "Робот не в той точке";
+            //_debugString.text = "Робот не в той точке";
             //возможно стоит перенести сюда вывод ошибки в дебаг консоли
         }
     }

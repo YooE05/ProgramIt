@@ -1,0 +1,260 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15fb80c184fb8294db451a4148e15553, type: 3}
+  m_Name: SoundsRefsSO
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: mainmenu
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    mixerGroup: {fileID: 8833835337505600130, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 7b73ba28ec1f18f43a7744fcf253e317, type: 3}
+    source: {fileID: 0}
+  - name: pickup1
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: f10d01a6a61fe3941bf73032b139e344, type: 3}
+    source: {fileID: 0}
+  - name: pickup2
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 0cce1c89a3c831446865b308ab38123c, type: 3}
+    source: {fileID: 0}
+  - name: pickup3
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: ccb244a0c1e208840bf295e2db0cdeaa, type: 3}
+    source: {fileID: 0}
+  - name: radio1
+    volume: 0.25
+    pitch: 1
+    loop: 1
+    mixerGroup: {fileID: 8833835337505600130, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: ad9e019c72b233e45aa6347faf6c5bb8, type: 3}
+    source: {fileID: 0}
+  - name: radio2
+    volume: 0.25
+    pitch: 1
+    loop: 1
+    mixerGroup: {fileID: 8833835337505600130, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 9e2ad3e02e0c2e346b278802ef452029, type: 3}
+    source: {fileID: 0}
+  - name: radio3
+    volume: 0.25
+    pitch: 1
+    loop: 1
+    mixerGroup: {fileID: 8833835337505600130, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: d89e039acf5179047a0730ca48fd75b8, type: 3}
+    source: {fileID: 0}
+  - name: drop1
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 8a44b1a4f363b0c4983ba341a3876237, type: 3}
+    source: {fileID: 0}
+  - name: drop2
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 5b8e9b9480e48cc4a9677863f106c88a, type: 3}
+    source: {fileID: 0}
+  - name: error
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 64ed4e3504b645b49b2748c446e02bc6, type: 3}
+    source: {fileID: 0}
+  - name: switch1
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 3072397750278494ca2262951a679432, type: 3}
+    source: {fileID: 0}
+  - name: switch2
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 45a9ab45fe761cd49b0355e35c0eb547, type: 3}
+    source: {fileID: 0}
+  - name: glass
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: b7f93b63daad161428442cff43404fce, type: 3}
+    source: {fileID: 0}
+  - name: beforegamemusic
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    mixerGroup: {fileID: 8833835337505600130, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 36c345d327e4ba34c97626a9be24ca8f, type: 3}
+    source: {fileID: 0}
+  - name: gamemusic
+    volume: 0.1
+    pitch: 1
+    loop: 1
+    mixerGroup: {fileID: 8833835337505600130, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 81d42ddacc2967949acaf5365222e53d, type: 3}
+    source: {fileID: 0}
+  - name: flight
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 185e26c21c5604d40ac7253cd9bbcb49, type: 3}
+    source: {fileID: 0}
+  - name: window
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 82a83b7a9f442264dac1908f4b7a5eb4, type: 3}
+    source: {fileID: 0}
+  - name: footstep1
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: b993df4a93c1d304ab19d8b2eb88c9a5, type: 3}
+    source: {fileID: 0}
+  - name: footstep2
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 5c9bdbce37b06a24fa6ea793bcfd1907, type: 3}
+    source: {fileID: 0}
+  - name: footstep3
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 0909de896e9029541b92ae05fe15e4b6, type: 3}
+    source: {fileID: 0}
+  - name: footstep4
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 6ad0cf00f050bee41a2dee098475dc78, type: 3}
+    source: {fileID: 0}
+  - name: footstep5
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 7ca5a9710db4327439c9f8cb8204615e, type: 3}
+    source: {fileID: 0}
+  - name: footstep6
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 14ae706fef2303e4cb71112dbd5d250b, type: 3}
+    source: {fileID: 0}
+  - name: footstep7
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: b995bc1775ea83b4b8f861763e9a1424, type: 3}
+    source: {fileID: 0}
+  - name: footstep8
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: d15f7338d693f0343843a6b9096d27f6, type: 3}
+    source: {fileID: 0}
+  - name: fromwindow
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 6317bcdbcdbe681438315c8ea5aa7d8f, type: 3}
+    source: {fileID: 0}
+  - name: run1
+    volume: 0.7
+    pitch: 0.7
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 304f2bf2228cba94e91cd22803e54bcf, type: 3}
+    source: {fileID: 0}
+  - name: run2
+    volume: 0.7
+    pitch: 0.7
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: c86476186f357d44eb470d68a2986520, type: 3}
+    source: {fileID: 0}
+  - name: run3
+    volume: 0.7
+    pitch: 0.7
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: f65b8caedf0c89b4c9f6ea1408f5e362, type: 3}
+    source: {fileID: 0}
+  - name: run3
+    volume: 0.7
+    pitch: 0.7
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: f65b8caedf0c89b4c9f6ea1408f5e362, type: 3}
+    source: {fileID: 0}
+  - name: nagging1
+    volume: 0.4
+    pitch: 1
+    loop: 1
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: b1fb02e73ebe336479892d9943f7ca38, type: 3}
+    source: {fileID: 0}
+  - name: nagging2
+    volume: 0.4
+    pitch: 1
+    loop: 1
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 32e8f335259db7d4ca081976ae1d4966, type: 3}
+    source: {fileID: 0}
+  - name: nagging3
+    volume: 0.4
+    pitch: 1
+    loop: 1
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 49116b83a3154bc48840885eb5a8ebd6, type: 3}
+    source: {fileID: 0}
+  - name: nagging4
+    volume: 0.4
+    pitch: 1
+    loop: 1
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 80ef9e3d4cebbe4468baadc0b355371d, type: 3}
+    source: {fileID: 0}
+  - name: breathe
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -6618192482675976053, guid: 115a97aeb5f9d304b8470aa50a2bbcee, type: 2}
+    clip: {fileID: 8300000, guid: 7b3d41c1f4da7054d9f5cbc268157b79, type: 3}
+    source: {fileID: 0}
