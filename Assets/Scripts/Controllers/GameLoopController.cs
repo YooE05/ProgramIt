@@ -12,6 +12,10 @@ public sealed class GameLoopController : MonoBehaviour
     [SerializeField]
     private TutorialController _tutorialController;
 
+    [SerializeField]
+    private GameObject _playerGameObject;
+
+
     [Header("Mark criteria")]
     [SerializeField]
     private List<int> _criteriaList = new();
@@ -49,7 +53,8 @@ public sealed class GameLoopController : MonoBehaviour
     {
         Debug.Log("Game Ended");
 
-        
+        _fieldInitializer.HideField();
+        _playerGameObject.SetActive(false);
 
         _consoleInput.DisactivateConsole();
         //посчитать и вывести оценку за игру

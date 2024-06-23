@@ -8,6 +8,9 @@ public class InputValuesMatcher : MonoBehaviour
     public bool IsActiveCondition;
 
     [SerializeField]
+    private FieldInitializer _fieldInitializer;
+
+    [SerializeField]
     private List<TMP_InputField> _inputFields = new();
 
     [SerializeField]
@@ -22,6 +25,18 @@ public class InputValuesMatcher : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _answer;
     public bool IsAnswerCorrect;
+
+    private void Awake()
+    {
+        if (IsActiveCondition)
+        {
+            _fieldInitializer.SetInactiveWinCell();
+        }
+        else
+        {
+            _fieldInitializer.SetActiveWinCell();
+        }
+    }
 
     public void CountAnswer()
     {
@@ -84,6 +99,19 @@ public class InputValuesMatcher : MonoBehaviour
             }
         }
 
+
+        if (IsActiveCondition)
+        {
+            if (IsAnswerCorrect)
+            {
+                _fieldInitializer.SetActiveWinCell();
+            }
+            else
+            {
+                _fieldInitializer.SetInactiveWinCell();
+            }
+        }
+
         Debug.Log("Значения правильные? - " + IsAnswerCorrect);
     }
 
@@ -91,7 +119,7 @@ public class InputValuesMatcher : MonoBehaviour
     {
         for (int i = 0; i < _inputFields.Count; i++)
         {
-            _inputFields[i].text=string.Empty;
+            _inputFields[i].text = string.Empty;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,6 +37,14 @@ public sealed class Grid : MonoBehaviour
         else
         {
             return _wrongCell;
+        }
+    }
+
+    internal void HideAllCells()
+    {
+        for (int i = 0; i < _allCells.Count; i++)
+        {
+            _allCells[i].gameObject.SetActive(false);
         }
     }
 }
