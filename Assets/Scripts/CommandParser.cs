@@ -505,7 +505,6 @@ public sealed class CommandParser : MonoBehaviour
     private int _cycleIterationCount;
     private List<Command> _cycleCommands = new();
 
-
     private void Do()
     {
         _inCycle = true;
@@ -573,5 +572,4 @@ public sealed class CommandParser : MonoBehaviour
         _cycleEnded = true;
         yield return null;
     }
-
 }

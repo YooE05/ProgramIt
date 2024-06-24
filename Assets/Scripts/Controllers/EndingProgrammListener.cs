@@ -48,8 +48,12 @@ public sealed class EndingProgrammListener : MonoBehaviour
             else
             {
                 _consoleInput.ActivateConsole();
-                _debugString.text = "–обот в нужной точке, но дополнительные услови€ не соблюдены";
-             //   Debug.Log("ƒоп услови€ победы не соблюдены");
+                if (!_commandParser.IsProgramCrashed)
+                {
+                    _debugString.text = "–обот в нужной точке, но дополнительные услови€ не соблюдены";
+                }
+
+                Debug.Log("ƒоп услови€ победы не соблюдены");
             }
         }
         else

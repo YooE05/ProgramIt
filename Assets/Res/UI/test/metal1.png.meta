@@ -564,10 +564,10 @@ TextureImporter:
       name: metal1_20
       rect:
         serializedVersion: 2
-        x: 195
+        x: 190
         y: 242
-        width: 115
-        height: 114
+        width: 124
+        height: 118
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -648,10 +648,10 @@ TextureImporter:
       name: metal1_24
       rect:
         serializedVersion: 2
-        x: 709
+        x: 705
         y: 242
-        width: 115
-        height: 114
+        width: 124
+        height: 118
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

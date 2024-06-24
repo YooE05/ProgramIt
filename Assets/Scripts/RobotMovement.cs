@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public sealed class RobotMovement : MonoBehaviour
@@ -106,7 +104,7 @@ public sealed class RobotMovement : MonoBehaviour
             return false;
         }
     }
-
+    
     public bool TryToPullLever()
     {
         var nextCellCoordinates = Coordinates;
@@ -152,7 +150,6 @@ public sealed class RobotMovement : MonoBehaviour
           }*/
     }
 
-
     public void SetNewCoordinates(Vector2 newCoordinates)
     {
         Coordinates = newCoordinates;
@@ -168,7 +165,6 @@ public sealed class RobotMovement : MonoBehaviour
         IsActive = activationState;
         _robotViewController.SetActivateSprite(_currentRotation, IsActive);
     }
-
 }
 
 public enum Rotation

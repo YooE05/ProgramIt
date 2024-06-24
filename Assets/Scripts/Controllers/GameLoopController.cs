@@ -4,6 +4,9 @@ using System.Collections.Generic;
 public sealed class GameLoopController : MonoBehaviour
 {
     [SerializeField]
+    private int _levelIndex;
+
+    [SerializeField]
     private ConsoleInputHandler _consoleInput;
     [SerializeField]
     private FieldInitializer _fieldInitializer;
@@ -78,6 +81,9 @@ public sealed class GameLoopController : MonoBehaviour
             //назначить роботу текст хорошей концовки
             _tutorialController.SetTextToGoodEnd();
         }
+
+        DataController.Instance.SetMark(indexOfMark + 3, _levelIndex);
+        DataController.Instance.SaveData();
 
         _uIContoller.SetupEndPanel(mark, markConclusion);
         _uIContoller.ShowEndPanel();

@@ -16,6 +16,8 @@ public class AdditionalProgrammCode : MonoBehaviour
 
     public virtual void CollectCommands()
     {
+        _commands.Clear();
+
         for (int i = 0; i < _values.Count; i++)
         {
             _commands.Add(new Command(_values[i]));

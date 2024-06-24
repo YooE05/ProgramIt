@@ -33,6 +33,7 @@ public class AudioManager : MonoBehaviour
 
             sound.source.outputAudioMixerGroup = sound.mixerGroup;
         }
+        PlaySound("main");
     }
 
     private Sound FindSound(string name, Sound[] sounds)
